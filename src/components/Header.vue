@@ -4,6 +4,7 @@
         <fa icon="home"  class="navbarIcon" />
         <fa icon="safari" type="fab" class="navbarIcon" />
         <fa icon="history" class="navbarIcon" />
+        <fa icon="ellipsis-h" class="navbarIcon" />
     </header>
 </template>
 
@@ -29,8 +30,12 @@ header{
 }
 
 .navbarIcon{
-    height: 35px;
+    height: 30px;
     margin: 15px;
     color: #fff;
+}
+
+.navbarIcon:hover{
+    color: lightgreen
 }
 </style>

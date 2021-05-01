@@ -4,19 +4,32 @@ import FontAwesomeIcon from "@/libs/FontAwesomeIcon.vue";
 import { 
     faHome,
     faHistory, 
-    faEllipsisH, 
+    faEllipsisH,
+    faShieldAlt,
+    faCog,
+    faBell,
     faMicrophoneAlt,
-    faCircle} from '@fortawesome/free-solid-svg-icons';
+    faRecordVinyl,
+    faFilter,
+    faPlayCircle,
+    faSortDown} from '@fortawesome/free-solid-svg-icons';
 import { faSpotify, faSafari } from '@fortawesome/free-brands-svg-icons';
 
 library.add(
-    fas, 
+    fas,
     faHome, 
     faSafari, 
     faHistory, 
     faEllipsisH, 
     faMicrophoneAlt,
     faSpotify,
-    faCircle);
+    faShieldAlt,
+    faCog,
+    faBell,
+    faRecordVinyl,
+    faFilter,
+    faPlayCircle,
+    faSortDown
+    );
 
 export { FontAwesomeIcon };

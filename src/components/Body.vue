@@ -1,24 +1,35 @@
 <template>
 <div class="container-body">
-    <SearchBar />    
+    <div class="top-container">
+        <SearchBar />    
+        <Options />
+    </div>
+    <Tracks />
 
 </div>
 </template>
 
 <script>
 import SearchBar from './SearchBar';
+import Options from './Options';
+import Tracks from './Tracks';
 
 export default{
     name:'Body',
     components:{
         SearchBar,
+        Tracks,
+        Options
     }
 }
 </script>
 
-<style>
+<style scoped>
     .container-body{
-        background-color: rgb(31, 25, 25);
+        background-color: rgb(19, 15, 15);
         height: 100vh;
+    }
+    .top-container{
+        padding-top: 40px;
     }
 </style>
