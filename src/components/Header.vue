@@ -36,6 +36,6 @@ header{
 }
 
 .navbarIcon:hover{
-    color: lightgreen
+    color: #1DB954
 }
 </style>

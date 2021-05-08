@@ -1,6 +1,6 @@
 <template>
 <div class="container-searchbar">
-    <input type="text" v-model="busqueda" class="search-bar" placeholder="Search...">
+    <input type="text" v-model="busqueda" @keyup='search(busqueda)' class="search-bar" placeholder="Search...">
     <fa icon="record-vinyl" class="searchIcon" />
     <div class="container-filters">
         <div class="buttons">
@@ -13,27 +13,53 @@
 </template>
 
 <script>
+
 export default{
     name:"SearchBar",
     data(){
         return{
             busqueda: '',
         }
-    }
+    },
+    // props: {
+    //      search: ['search'],
+    // }
+    methods: {
+        search(busqueda){
+            fetch(`https://api.spotify.com/v1/search?q=${busqueda}&type=artist,track`,{
+                method: 'get',
+                headers:{
+                    'Authorization': 'Bearer BQDBPO-6VbfdoveGPHw58rJTOpwfk5YE2S4QOSMZxhLxuvePzKtULQrPjem5tgEBzaus_OuRHZDOdZmh5KZI3syNO4KA3K9VnZriWBVPjo4ZCthJmQiO7K-c_zJcOX3a3xg_Ia-O6gdqirgQKHT4__M6MTLgGeFivaXhDOPixrydjqJW6dlAfKU'
+                }
+            })
+            .then(response => response.json())
+            .then(json => console.log(json))
+            .then(this.$emit('resultado-busqueda', this.resultados))
+            .catch(err => console.log(err))
+
+        },
+    },
+    // watch: {
+    //     resultados: search = (busqueda) => {
+    //     this.$emit('resultado-busqueda', this.resultados);
+    // }
+    // },
+    // created: function() {
+    //     this.$emit('resultado-busqueda', this.resultados);
+    // }
 }
 </script>
 
 <style>
 
 .container-searchbar{
-    width: 65%;
-    margin-left: 130px;
+    width: 69%;
     float: left;
     position: relative; 
 }
 .search-bar{
     border: gray 1px solid;
-    background-color: #000;
+    background-color: #1f1f1f;
     width: 100%;
     height: 50px;
     color: #fff;
@@ -48,7 +74,7 @@ export default{
     left: 0;
     top: 8px;
     padding: 5px 17px;
-    color: lightcyan;
+    color: #fff;
 }
 
 .container-filters{
@@ -56,11 +82,11 @@ export default{
     color: lightcyan;
     right: 0;
     display: flex;
-    top: 8px;
+    top: 0;
 }
 
 .container-filters .buttons{
-    padding-top: 2px;
+    padding-top: 5px;
 }
 
 .container-filters .buttons .button{
@@ -68,14 +94,14 @@ export default{
     padding: 5px;
     margin-right: 10px;
     background-color: transparent;
-    color: lightcyan;
+    color: #1DB954;
     border-radius: 5px;
-    border: 1px solid #fff;
+    border: 1px solid #1DB954;
 }
 
 .container-filters .buttons .button:hover{
-    background: #fff;
-    color: #000;
+    background: #1DB954;
+    color: #fff;
 }
 
 

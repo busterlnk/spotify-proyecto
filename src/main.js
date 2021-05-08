@@ -5,4 +5,3 @@ import { FontAwesomeIcon } from "./plugins/font-awesome";
 createApp(App)
   .component("fa", FontAwesomeIcon)
   .mount("#app");
-

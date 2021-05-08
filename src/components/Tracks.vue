@@ -1,15 +1,14 @@
 <template>
 <div class="container-track">
-    <div :key="task.id" v-for="task in tasks" class="track" >
-        <img v-bind:src="task.img" alt="" class="image">
+    <div :key="item.id" v-for="item in items" class="track" >
+        <img v-bind:src="item.images[0].url" alt="" class="image">
         <div class="textos">
-            <p class="cantity">{{task.songs}} Tracks</p>
+            <p class="cantity">{{item.tracks.total}} Tracks</p>
             <div class="spacebetween"></div>
             <div class="containerBottom">
-                <fa icon="play-circle" class="playIcon" />
+                <fa icon="play" class="playIcon" />
                 <div class="bottom-text">
-                    <p class="title">{{task.title}}</p>
-                    <p class="subtitle">{{task.subtitle}}</p>
+                    <p class="subtitle">{{item.description}}</p>
                 </div>
             </div>
         </div>
@@ -23,29 +22,35 @@ export default {
     name: 'Tracks',
     data(){
         return{
-            tasks:[
-                {
-                    id: 1,
-                    title: 'Daily Mix 1',
-                    subtitle: 'Here is your daily mix',
-                    songs: 20,
-                    img: 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwallpapercave.com%2Fwp%2FXmgloEq.jpg&f=1&nofb=1',
+            items: []
+        }
+    },
+    async mounted(){
+        const artistas = await this.getArtist()
+        const recomendaciones = await this.getRecomendations()
+        this.items = recomendaciones.playlists.items
+        console.log(artistas)
+    },
+    methods:{
+        getRecomendations(){
+            return fetch("https://api.spotify.com/v1/browse/categories/rock/playlists?country=es&limit=4&offset=5",{
+                method: 'get',
+                headers: {
+                    'Authorization': 'Bearer BQDBPO-6VbfdoveGPHw58rJTOpwfk5YE2S4QOSMZxhLxuvePzKtULQrPjem5tgEBzaus_OuRHZDOdZmh5KZI3syNO4KA3K9VnZriWBVPjo4ZCthJmQiO7K-c_zJcOX3a3xg_Ia-O6gdqirgQKHT4__M6MTLgGeFivaXhDOPixrydjqJW6dlAfKU'
                 },
-                {
-                    id: 2,
-                    title: 'Daily Mix 2',
-                    subtitle: 'Here is your daily mix',
-                    songs: 15,
-                    img: 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fgetwallpapers.com%2Fwallpaper%2Ffull%2F2%2F2%2F3%2F590040.jpg&f=1&nofb=1',
+                })
+            .then(response => response.json())
+            .catch(error => console.log(error))
+        },
+        getArtist(){
+            return fetch("https://api.spotify.com/v1/artists/43ZHCT0cAZBISjO8DG9PnE/top-tracks?market=ES",{
+                method: 'get',
+                headers: {
+                    'Authorization': 'Bearer BQDBPO-6VbfdoveGPHw58rJTOpwfk5YE2S4QOSMZxhLxuvePzKtULQrPjem5tgEBzaus_OuRHZDOdZmh5KZI3syNO4KA3K9VnZriWBVPjo4ZCthJmQiO7K-c_zJcOX3a3xg_Ia-O6gdqirgQKHT4__M6MTLgGeFivaXhDOPixrydjqJW6dlAfKU'
                 },
-                {
-                    id: 3,
-                    title: 'Daily Mix 3',
-                    subtitle: 'Here is your daily mix',
-                    songs: 30,
-                    img: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.qULWzBgQpnwVVHC4H3SKAwHaEo%26pid%3DApi&f=1',
-                }
-            ]
+                })
+            .then(response => response.json())
+            .catch(error => console.log(error))
         }
     }
 }
@@ -53,10 +58,9 @@ export default {
 
 <style scoped>
     .container-track{
-        margin-right: 350px;
-        margin-top: 60px;
-        display: inline-block;
-        
+        margin-top: 30px;
+        width: 75%;
+        justify-content: left;
     }
 
     .container-track .image{
@@ -67,8 +71,8 @@ export default {
     .track{
         color: #fff;
         height: 380px;
-        width: 300px;
-        margin: 20px 70px;
+        width: 280px;
+        margin: 20px 20px;
         display: inline-block;
         position: relative;
         border-radius: 50px;
@@ -76,31 +80,40 @@ export default {
     }
     .cantity{
         text-align: left;
-        margin-left: 35px;
+        margin-left: 25px;
         margin-top: 35px;
+        font-size: 18px;
+        font-weight: 900;
     }
     .spacebetween{
-        padding: 130px 0px;
+        padding: 120px 0px;
     }
 
-    .containerBottom{
-        display: flex;
-    }
 
     .playIcon{
-        margin-left: 30px;
-        height: 35px;
+        margin-left: 17px;
+        border-radius: 100%;
+        background-color: #1DB954;
+        height: 20px;
+        padding: 15px;
+        float: left;
     }
+
+    .playIcon:hover{
+        color: #1DB954;
+        background-color: #fff;
+    }
+    
     .container-track .textos{
         position: absolute;
         top: 0;
     }
-    .title{
-        text-align: left;
-        margin-left: 20px;
-    }
     .subtitle{
         text-align: left;
-        margin-left: 20px;
+        margin-left: 70px;
+        font-size: 18px;
+        font-weight: 900;
+        color: #fff;
+        -webkit-text-stroke: .5px black;
     }
 </style>

@@ -7,19 +7,43 @@
         </div>
         <div class="container-photo">
             <div class="non-photo">
-                <fa icon="sort-down" class="optionIcon" />
+                <fa icon="sort-down" class="optionIcon" v-show="ocultarDesplegable" @click="desplegarPerfil()"/>
             </div>
             <div class="photo">
                 <img src="./../images/IMG_0062.jpg" alt="">
+            </div>
+            <div class="desplegable" v-show="mostrarPerfil">
+                <ul class="menu">
+                    <router-link to="/"> <li>login</li></router-link>
+                    <router-link to="/profile"> <li>Profile</li> </router-link>
+                    <router-link to="/Plan"> <li>Plan</li> </router-link>
+                    <li @click="desplegarPerfil()"><fa icon="sort-up" class="sort-up"/></li>
+                </ul>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+
 export default {
-    name: 'Options'
+    name: 'Options',
+    data(){
+        return{
+            mostrarPerfil: false,
+            ocultarDesplegable: true,
+            artista: {},
+
+        }
+    },
+    methods:{
+        desplegarPerfil(){
+            this.mostrarPerfil = !this.mostrarPerfil;
+            this.ocultarDesplegable = !this.ocultarDesplegable;
+        },
+    }
 }
+
 </script>
 
 <style scoped>
@@ -47,7 +71,7 @@ export default {
     color: #fff;
 }
 .optionIcon:hover{
-    color: gray;
+    color: #1DB954;
 }
 
 .container-photo{
@@ -57,6 +81,7 @@ export default {
     background: #000;
     border-radius: 100px;
     display: flex;
+    z-index: 1;
 }
 
 .container-photo .non-photo{
@@ -70,6 +95,7 @@ export default {
     position: absolute;
     width: 55px;
     height: 100%;
+    z-index: 2;
     margin-left: 55px;
 }
 
@@ -79,4 +105,44 @@ export default {
     width: 100%;
 
 }
+
+.desplegable{
+    background: #000;
+    height: 200px;
+    width: 110px;
+    top: 0;
+    position: absolute;
+    border-radius: 25px 27px 25px 25px;
+    border: 1px solid gray;
+    z-index: 0;
+    padding-top: 55px;
+    box-sizing: border-box;
+}
+
+.desplegable .menu{
+    list-style-type: none;
+    margin: 0px;
+    left: 0;
+    color: #fff;
+}
+
+.desplegable .menu li{
+    border-top: 1px solid #fff;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
+.desplegable .menu li:hover{
+    background-color: #fff;
+    color: #000;
+    overflow: hidden;
+}
+
+.desplegable .menu .sort-up{
+    height: 25px;
+    width: 25px;
+    text-align: center;
+    padding-top: 10px;
+}
+
 </style>
