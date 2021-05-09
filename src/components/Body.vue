@@ -1,11 +1,11 @@
 <template>
 <div class="container-body">
     <div class="top-container">
-        <SearchBar :search="search" />   
-        <!-- <Resultados/>  -->
+        <SearchBar :accessToken="accessToken" :search="search" />   
+        <!-- <Resultados :accessToken="accessToken"/>  -->
         <Options />
     </div>
-    <Tracks class="tracks"/>
+    <Tracks :accessToken="accessToken" class="tracks"/>
     <div class="bottom-container">
         <button @click="login()"></button>
         <Gnres />
@@ -27,13 +27,9 @@ import RecentArtists from './RecentArtists';
 
 export default{
     name:'Body',
-    data(){
-        return{
-            device: this.devices,
-            my_client_id: '4052543630674d73820eae006de81202',
-            redirect_uri: 'http://localhost:8080/callback'
-        }
-    },
+    props: [
+        'accessToken'
+    ],
     components:{
         SearchBar,
         Tracks,

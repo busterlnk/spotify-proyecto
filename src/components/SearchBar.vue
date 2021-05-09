@@ -16,20 +16,20 @@
 
 export default{
     name:"SearchBar",
+    props: [
+        'accessToken'
+    ],
     data(){
         return{
             busqueda: '',
         }
     },
-    // props: {
-    //      search: ['search'],
-    // }
     methods: {
         search(busqueda){
             fetch(`https://api.spotify.com/v1/search?q=${busqueda}&type=artist,track`,{
                 method: 'get',
                 headers:{
-                    'Authorization': 'Bearer BQDBPO-6VbfdoveGPHw58rJTOpwfk5YE2S4QOSMZxhLxuvePzKtULQrPjem5tgEBzaus_OuRHZDOdZmh5KZI3syNO4KA3K9VnZriWBVPjo4ZCthJmQiO7K-c_zJcOX3a3xg_Ia-O6gdqirgQKHT4__M6MTLgGeFivaXhDOPixrydjqJW6dlAfKU'
+                    'Authorization': 'Bearer ' +this.accessToken
                 }
             })
             .then(response => response.json())

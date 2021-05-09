@@ -1,8 +1,8 @@
 <template>
 <div class="container">
   <Header />
-  <Body />
-  <Player class="player-container" :device="device"/>
+  <Body :accessToken="accessToken" />
+  <Player :devices="devices" class="player-container" :device="device"/>
 </div>
 </template>
 
@@ -10,9 +10,7 @@
 import Header from './components/Header';
 import Body from './components/Body';
 import Player from './components/Player';
-
-
-
+import queryString from 'query-string';
 
 
 export default {
@@ -29,6 +27,10 @@ export default {
 
   },
     async mounted() {
+      const parsed = await queryString.parse(window.location.search);
+      const accessToken = parsed.access_token;
+      console.log(accessToken);
+
       const deviceID = await this.getDevices()
       const devices = deviceID.devices[0].id
       console.log(devices)
@@ -38,7 +40,7 @@ export default {
           return fetch(`https://api.spotify.com/v1/me/player/devices`,{
               method: 'get',
               headers:{
-              'Authorization': 'Bearer BQDBPO-6VbfdoveGPHw58rJTOpwfk5YE2S4QOSMZxhLxuvePzKtULQrPjem5tgEBzaus_OuRHZDOdZmh5KZI3syNO4KA3K9VnZriWBVPjo4ZCthJmQiO7K-c_zJcOX3a3xg_Ia-O6gdqirgQKHT4__M6MTLgGeFivaXhDOPixrydjqJW6dlAfKU'
+              'Authorization': 'Bearer '+this.accessToken,
               }
           })
           .then(response => response.json())

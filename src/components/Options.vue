@@ -14,7 +14,7 @@
             </div>
             <div class="desplegable" v-show="mostrarPerfil">
                 <ul class="menu">
-                    <router-link to="/"> <li>login</li></router-link>
+                    <a href="http://localhost:8888/login"> <li>login</li></a>
                     <router-link to="/profile"> <li>Profile</li> </router-link>
                     <router-link to="/Plan"> <li>Plan</li> </router-link>
                     <li @click="desplegarPerfil()"><fa icon="sort-up" class="sort-up"/></li>

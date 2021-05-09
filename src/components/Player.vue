@@ -17,6 +17,10 @@
 <script>
 export default {
     name: "Player",
+    props: [
+        'accessToken',
+        'devices'
+    ],
     data(){
         return{
             mostrarPlay: true,
@@ -30,19 +34,19 @@ export default {
     // props: ['device'],
     methods:{
         async play(){
-            await fetch(`https://api.spotify.com/v1/me/player/play?device_id=8cb56f32b9369cf8fbe7411c06bbd832fdd08092`,{
+            await fetch('https://api.spotify.com/v1/me/player/play?device_id='+this.devices,{
                 method: 'put',
                 headers:{
-                'Authorization': 'Bearer BQDBPO-6VbfdoveGPHw58rJTOpwfk5YE2S4QOSMZxhLxuvePzKtULQrPjem5tgEBzaus_OuRHZDOdZmh5KZI3syNO4KA3K9VnZriWBVPjo4ZCthJmQiO7K-c_zJcOX3a3xg_Ia-O6gdqirgQKHT4__M6MTLgGeFivaXhDOPixrydjqJW6dlAfKU',
+                'Authorization': 'Bearer '+this.accessToken,
                 },
             })
             .catch(err => console.log(err))
         },
         pause(){
-            return fetch(`https://api.spotify.com/v1/me/player/pause?device_id=8cb56f32b9369cf8fbe7411c06bbd832fdd08092`,{
+            return fetch('https://api.spotify.com/v1/me/player/play?device_id='+this.devices,{
                 method: 'put',
                 headers:{
-                'Authorization': 'Bearer BQDBPO-6VbfdoveGPHw58rJTOpwfk5YE2S4QOSMZxhLxuvePzKtULQrPjem5tgEBzaus_OuRHZDOdZmh5KZI3syNO4KA3K9VnZriWBVPjo4ZCthJmQiO7K-c_zJcOX3a3xg_Ia-O6gdqirgQKHT4__M6MTLgGeFivaXhDOPixrydjqJW6dlAfKU',
+                'Authorization': 'Bearer '+this.accessToken,
                 }
             })
             .catch(err => console.log(err))

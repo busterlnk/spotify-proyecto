@@ -18,8 +18,11 @@
 
 <script>
 
-export default {
+export default{
     name: 'Tracks',
+    props: [
+        'accessToken'
+    ],
     data(){
         return{
             items: []
@@ -30,13 +33,14 @@ export default {
         const recomendaciones = await this.getRecomendations()
         this.items = recomendaciones.playlists.items
         console.log(artistas)
+        
     },
     methods:{
         getRecomendations(){
             return fetch("https://api.spotify.com/v1/browse/categories/rock/playlists?country=es&limit=4&offset=5",{
                 method: 'get',
                 headers: {
-                    'Authorization': 'Bearer BQDBPO-6VbfdoveGPHw58rJTOpwfk5YE2S4QOSMZxhLxuvePzKtULQrPjem5tgEBzaus_OuRHZDOdZmh5KZI3syNO4KA3K9VnZriWBVPjo4ZCthJmQiO7K-c_zJcOX3a3xg_Ia-O6gdqirgQKHT4__M6MTLgGeFivaXhDOPixrydjqJW6dlAfKU'
+                    'Authorization': 'Bearer ' +this.accessToken,
                 },
                 })
             .then(response => response.json())
@@ -46,7 +50,7 @@ export default {
             return fetch("https://api.spotify.com/v1/artists/43ZHCT0cAZBISjO8DG9PnE/top-tracks?market=ES",{
                 method: 'get',
                 headers: {
-                    'Authorization': 'Bearer BQDBPO-6VbfdoveGPHw58rJTOpwfk5YE2S4QOSMZxhLxuvePzKtULQrPjem5tgEBzaus_OuRHZDOdZmh5KZI3syNO4KA3K9VnZriWBVPjo4ZCthJmQiO7K-c_zJcOX3a3xg_Ia-O6gdqirgQKHT4__M6MTLgGeFivaXhDOPixrydjqJW6dlAfKU'
+                    'Authorization': 'Bearer ' +this.accessToken,
                 },
                 })
             .then(response => response.json())
