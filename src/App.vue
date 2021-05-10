@@ -1,8 +1,17 @@
 <template>
-<div class="container">
-  <Header />
-  <Body :accessToken="accessToken" />
-  <Player :devices="devices" class="player-container" :device="device"/>
+<div class="main-container">
+  <div v-if="this.accessToken" class="container">
+    <Header />
+    <Body v-bind:accessToken="accessToken" />
+    <Player 
+      v-bind:accessToken="accessToken" 
+      v-bind:devices="devices" 
+      class="player-container"
+    />
+  </div>
+  <div v-else>
+    <Login />
+  </div>
 </div>
 </template>
 
@@ -11,29 +20,35 @@ import Header from './components/Header';
 import Body from './components/Body';
 import Player from './components/Player';
 import queryString from 'query-string';
+import Login from './components/Login';
 
 
 export default {
   name: 'App',
   data(){
     return{
-
+      accessToken: '',
+      devices: ''
     }
   },
   components: {
     Header,
     Body,
-    Player
+    Player,
+    Login
 
   },
     async mounted() {
       const parsed = await queryString.parse(window.location.search);
-      const accessToken = parsed.access_token;
-      console.log(accessToken);
+      this.accessToken = parsed.access_token;
+      console.log(this.accessToken);
 
       const deviceID = await this.getDevices()
-      const devices = deviceID.devices[0].id
-      console.log(devices)
+      // console.log(deviceID)
+      if(deviceID.devices.length > 0){
+        this.devices = deviceID.devices[0].id
+        console.log(this.devices)
+      }
   },
   methods: {
       getDevices(){

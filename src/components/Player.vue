@@ -25,13 +25,8 @@ export default {
         return{
             mostrarPlay: true,
             mostrarPause: false,
-            // deviceID: this.device
         }
     },
-    mounted(){
-        // console.log(this.device)
-    },
-    // props: ['device'],
     methods:{
         async play(){
             await fetch('https://api.spotify.com/v1/me/player/play?device_id='+this.devices,{
@@ -43,7 +38,7 @@ export default {
             .catch(err => console.log(err))
         },
         pause(){
-            return fetch('https://api.spotify.com/v1/me/player/play?device_id='+this.devices,{
+            return fetch('https://api.spotify.com/v1/me/player/pause?device_id='+this.devices,{
                 method: 'put',
                 headers:{
                 'Authorization': 'Bearer '+this.accessToken,

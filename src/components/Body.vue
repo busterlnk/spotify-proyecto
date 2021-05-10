@@ -1,11 +1,10 @@
 <template>
 <div class="container-body">
     <div class="top-container">
-        <SearchBar :accessToken="accessToken" :search="search" />   
-        <!-- <Resultados :accessToken="accessToken"/>  -->
+        <SearchBar v-bind:accessToken="accessToken" :search="search" />  
         <Options />
     </div>
-    <Tracks :accessToken="accessToken" class="tracks"/>
+    <Tracks v-bind:accessToken="accessToken" class="tracks"/>
     <div class="bottom-container">
         <button @click="login()"></button>
         <Gnres />
