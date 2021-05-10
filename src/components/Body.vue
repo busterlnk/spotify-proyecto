@@ -6,7 +6,6 @@
     </div>
     <Tracks v-bind:accessToken="accessToken" class="tracks"/>
     <div class="bottom-container">
-        <button @click="login()"></button>
         <Gnres />
         <WeekTracks class="weektracks"/>
         <RecentArtists class="recentArtists" />
