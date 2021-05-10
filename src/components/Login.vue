@@ -1,8 +1,8 @@
 <template>
     <div class="login-container">
         <img src="../images/Spotify_Logo.png" class="spotifyImg" alt="">
-        <h1>Log In</h1>
-        <a href="http://localhost:8888/login" class="login"> <li>login</li></a>
+        <a href="http://localhost:8888/login" class="login"> <li>Login</li></a>
+        <p>Por favor leer el txt Importante ubicado en la raiz</p>
     </div>    
 </template>
 
@@ -16,7 +16,7 @@ export default {
 
 <style>
     .login-container{
-        margin-top: 40px;
+        margin-top: 100px;
     }
 
     .login-container .spotifyImg{
@@ -24,14 +24,21 @@ export default {
         margin-bottom: 30px;
     }
 
-    .login-container h1{
-        margin-bottom: 50px;
-        font-size: 60px;
-        color: black;
-    }
-
     .login-container .login{
         list-style-type: none;
-        font-size: 20px;
+        font-size: 60px;
+        text-decoration: none;
+        font-weight: 600;
+        color: #000;
+    }
+
+
+
+    .login-container .login:hover{
+        text-decoration: underline;
+    }
+
+    .login-container p{
+        margin-top: 40px;
     }
 </style>
