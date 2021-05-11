@@ -4,11 +4,23 @@
         <SearchBar v-bind:accessToken="accessToken" :search="search" />  
         <Options />
     </div>
-    <Tracks v-bind:accessToken="accessToken" class="tracks"/>
+    <Tracks 
+        v-bind:accessToken="accessToken" 
+        v-bind:devices="devices" 
+        class="tracks"
+    />
     <div class="bottom-container">
         <Gnres />
-        <WeekTracks class="weektracks"/>
-        <RecentArtists class="recentArtists" />
+        <WeekTracks
+            v-bind:accessToken="accessToken" 
+            v-bind:devices="devices"  
+            class="weektracks"
+        />
+        <RecentArtists 
+            v-bind:accessToken="accessToken" 
+            v-bind:devices="devices" 
+            class="recentArtists" 
+        />
     </div>
 </div>
 </template>
@@ -26,7 +38,8 @@ import RecentArtists from './RecentArtists';
 export default{
     name:'Body',
     props: [
-        'accessToken'
+        'accessToken',
+        'devices'
     ],
     components:{
         SearchBar,

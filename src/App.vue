@@ -2,7 +2,9 @@
 <div class="main-container">
   <div v-if="this.accessToken" class="container">
     <Header />
-    <Body v-bind:accessToken="accessToken" />
+    <Body 
+      v-bind:accessToken="accessToken" 
+      v-bind:devices="devices"/>
     <Player 
       v-bind:accessToken="accessToken" 
       v-bind:devices="devices" 
@@ -51,16 +53,16 @@ export default {
       }
   },
   methods: {
-      getDevices(){
-          return fetch(`https://api.spotify.com/v1/me/player/devices`,{
-              method: 'get',
-              headers:{
-              'Authorization': 'Bearer '+this.accessToken,
-              }
-          })
-          .then(response => response.json())
-          .catch(err => console.log(err))
-      }
+    getDevices(){
+        return fetch(`https://api.spotify.com/v1/me/player/devices`,{
+            method: 'get',
+            headers:{
+            'Authorization': 'Bearer '+this.accessToken,
+            }
+        })
+        .then(response => response.json())
+        .catch(err => console.log(err))
+    },
   }
 }
 </script>

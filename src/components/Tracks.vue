@@ -6,7 +6,7 @@
             <p class="cantity">{{item.tracks.total}} Tracks</p>
             <div class="spacebetween"></div>
             <div class="containerBottom">
-                <fa icon="play" class="playIcon" />
+                <fa icon="play" @click="playTracks(item.uri)" class="playIcon" />
                 <div class="bottom-text">
                     <p class="subtitle">{{item.description}}</p>
                 </div>
@@ -21,7 +21,8 @@
 export default{
     name: 'Tracks',
     props: [
-        'accessToken'
+        'accessToken',
+        'devices'
     ],
     data(){
         return{
@@ -32,6 +33,7 @@ export default{
         const artistas = await this.getArtist()
         const recomendaciones = await this.getRecomendations()
         this.items = recomendaciones.playlists.items
+        console.log(this.items)
         console.log(artistas)
         
     },
@@ -55,6 +57,23 @@ export default{
                 })
             .then(response => response.json())
             .catch(error => console.log(error))
+        },
+        playTracks(uri){
+            fetch('https://api.spotify.com/v1/me/player/play?device_id='+this.devices,{
+                method: 'put',
+                body:
+                    JSON.stringify({
+                    "context_uri": uri,
+                    "offset": {
+                        "position": 0
+                    },
+                    "position_ms": 1
+                    }),
+                headers:{
+                'Authorization': 'Bearer '+this.accessToken,
+                }
+            })
+            .catch(err => console.log(err))
         }
     }
 }
@@ -75,7 +94,6 @@ export default{
     .track{
         color: #fff;
         height: 380px;
-        width: 280px;
         margin: 20px 20px;
         display: inline-block;
         position: relative;

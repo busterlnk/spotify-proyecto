@@ -1,15 +1,15 @@
 <template>
 <div class="player">
     <div class="buttons-container">
-        <fa icon="angle-double-left" class="controllers" />
-        <div class="playcontainer"  @click="play(), mostrarPause= !mostrarPause, mostrarPlay= !mostrarPlay" v-show="mostrarPlay" >
+        <fa icon="angle-double-left" @click="previous()" class="controllers" />
+        <div class="playcontainer" v-if="!current.is_playing" @click="play(), current.is_playing = !current.is_playing" >
             <fa icon="play" class="controllersPP"/>
         </div>
 
-        <div class="playcontainer"  @click="pause(), mostrarPlay= !mostrarPlay, mostrarPause= !mostrarPause" v-show="mostrarPause" >
+        <div class="playcontainer" v-else @click="pause(), current.is_playing = !current.is_playing" >
             <fa icon="pause" class="controllersPP"/>
         </div>
-        <fa icon="angle-double-right" class="controllers" />
+        <fa icon="angle-double-right" @click="next()" class="controllers" />
     </div>
 </div>
 </template>
@@ -25,7 +25,12 @@ export default {
         return{
             mostrarPlay: true,
             mostrarPause: false,
+            current: {}
         }
+    },
+    async mounted(){
+        this.current = await this.currentTrack()
+        console.log(this.current)
     },
     methods:{
         async play(){
@@ -45,7 +50,38 @@ export default {
                 }
             })
             .catch(err => console.log(err))
-        }
+        },
+        next(){
+            return fetch('https://api.spotify.com/v1/me/player/next?device_id='+this.devices,{
+                method: 'post',
+                headers:{
+                'Authorization': 'Bearer '+this.accessToken,
+                }
+            })
+            .catch(err => console.log(err))
+        },
+        previous(){
+            return fetch('https://api.spotify.com/v1/me/player/previous?device_id='+this.devices,{
+                method: 'post',
+                headers:{
+                'Authorization': 'Bearer '+this.accessToken,
+                }
+            })
+            .catch(err => console.log(err))
+        },
+    },
+    watch:{
+        currentTrack() {
+            return fetch('https://api.spotify.com/v1/me/player/currently-playing',{
+                method: 'get',
+                headers:{
+                'Authorization': 'Bearer '+this.accessToken,
+                }
+            })
+            .then(response => response.json())
+            .catch(err => console.log(err))
+        },
+        
     }
 }
 </script>
