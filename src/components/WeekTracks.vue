@@ -190,6 +190,11 @@ export default {
         align-items: center;
     }
 
+    .right-week .like-play-container .container-play:active{
+        background: #6f6f6f;
+        color: #000;
+    }
+
     .right-week .like-play-container .play-button{
         height: 18px;
         

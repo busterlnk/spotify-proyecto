@@ -1,26 +1,28 @@
 <template>
 <div class="container-body">
     <div class="top-container">
-        <SearchBar v-bind:accessToken="accessToken" :search="search" />  
+        <SearchBar v-bind:accessToken="accessToken" />  
         <Options />
     </div>
-    <Tracks 
-        v-bind:accessToken="accessToken" 
-        v-bind:devices="devices" 
-        class="tracks"
-    />
-    <div class="bottom-container">
-        <Gnres />
-        <WeekTracks
-            v-bind:accessToken="accessToken" 
-            v-bind:devices="devices"  
-            class="weektracks"
-        />
-        <RecentArtists 
+    <div class="main-container">
+        <Tracks 
             v-bind:accessToken="accessToken" 
             v-bind:devices="devices" 
-            class="recentArtists" 
+            class="tracks"
         />
+        <div class="bottom-container">
+            <Gnres />
+            <WeekTracks
+                v-bind:accessToken="accessToken" 
+                v-bind:devices="devices"  
+                class="weektracks"
+            />
+            <RecentArtists 
+                v-bind:accessToken="accessToken" 
+                v-bind:devices="devices" 
+                class="recentArtists" 
+            />
+        </div>
     </div>
 </div>
 </template>
